@@ -70,9 +70,9 @@ const pastTalks = [
   },
   {
     id: 'microbytes-inaugural-kartik-aiyer',
-    eyebrow: 'Microbytes · Add date',
-    title: 'Add talk title',
-    speakers: [{ name: 'Dr. Kartik Aiyer', role: 'Postdoc, Aarhus University' }],
+    eyebrow: 'Microbytes · 11 September 2026',
+    title: 'The Electric Life of Microbes',
+    speakers: [{ name: 'Dr. Kartik Aiyer', role: 'Marie Curie Postdoctoral Fellow, Aarhus University' }],
     note: 'Inaugural Microbytes talk',
     videoUrl: null,
   },
@@ -145,7 +145,7 @@ export default function Talks() {
               color: '#E9C6A4',
             }}
           >
-            Flagship series · starting soon
+            Flagship series · ongoing
           </p>
           <h2
             style={{
