@@ -15,23 +15,66 @@ function PosterImage({ image, caption, alt }) {
   )
 }
 
-const upcomingTalks = [
+function VideoEmbed({ videoUrl, title }) {
+  if (videoUrl) {
+    return (
+      <iframe
+        src={videoUrl}
+        title={title}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0 }}
+      />
+    )
+  }
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        inset: 0,
+        background: 'rgba(127,127,127,0.08)',
+        border: '1.5px dashed currentColor',
+        borderRadius: 4,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 8,
+        opacity: 0.75,
+        color: 'inherit',
+      }}
+    >
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+        <rect x="2" y="5" width="20" height="14" rx="2.5" />
+        <path d="M10.5 9.5v5l4.5-2.5-4.5-2.5Z" fill="currentColor" stroke="none" />
+      </svg>
+      <span style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.01em' }}>Coming soon</span>
+    </div>
+  )
+}
+
+const upcomingTalks = []
+
+const pastTalks = [
   {
     id: 'fireside-chat-asm-leadership',
-    day: '26',
-    month: 'Sep',
-    time: '10:50 AM',
-    eyebrow: 'Fireside Chat',
+    eyebrow: 'Fireside Chat · 26 September 2026',
     title: 'Charting the Future of Microbial Sciences: Insights from ASM Leadership',
     speakers: [
       { name: 'Stefano Bertuzzi', role: 'CEO, American Society for Microbiology' },
       { name: 'Glen McGugan', role: 'Director, ASM Mechanism Discovery' },
       { name: 'Aditi Jain', role: 'Scientific Partnerships Manager, India, ASM' },
     ],
-    venue: 'Seminar Hall, IIT Delhi',
-    mode: 'Offline',
-    image: 'fireside-chat.jpeg',
-    registerUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSf4711VfC9TNBBNlZFPTxiScH518pH3iq1s6q9G1jlafKbJTA/viewform',
+    note: 'Seminar Hall, IIT Delhi',
+    videoUrl: null,
+  },
+  {
+    id: 'microbytes-inaugural-kartik-aiyer',
+    eyebrow: 'Microbytes · Add date',
+    title: 'Add talk title',
+    speakers: [{ name: 'Dr. Kartik Aiyer', role: 'Postdoc, Aarhus University' }],
+    note: 'Inaugural Microbytes talk',
+    videoUrl: null,
   },
 ]
 
@@ -129,7 +172,7 @@ export default function Talks() {
           <p style={{ margin: '0 0 22px', fontSize: '16.5px', lineHeight: 1.66, color: '#EBD9C4', textWrap: 'pretty' }}>
             A recurring series putting early career microbiologists — PhD scholars, postdocs and
             young faculty — in front of students to talk about their research and the paths that
-            took them there. 
+            took them there.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
             <span
@@ -172,84 +215,95 @@ export default function Talks() {
           The next scheduled talk in the series.
         </p>
       </Reveal>
-      {upcomingTalks.map((talk, i) => (
+      {upcomingTalks.length === 0 ? (
         <Reveal
-          key={talk.id}
-          as="article"
-          delay={0.12 + i * 0.08}
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '140px 90px minmax(0, 1fr)',
-            gap: 24,
-            alignItems: 'start',
-            padding: '24px 26px',
-            marginBottom: i === upcomingTalks.length - 1 ? 64 : 16,
-            background: '#F5EBD9',
-            border: '1px solid #E4D8C2',
-          }}
+          delay={0.12}
+          style={{ padding: '40px 26px', marginBottom: 64, border: '1px dashed #D3C1A4', borderRadius: 4, textAlign: 'center' }}
         >
-          <div style={{ position: 'relative', width: 140, height: 140, background: '#FAF5EA' }}>
-            <PosterImage image={talk.image} caption="Drop the talk poster" alt={talk.title} />
-          </div>
-          <div>
-            <p style={{ margin: 0, fontFamily: 'Spectral, Georgia, serif', fontSize: 30, fontWeight: 600, color: '#7A0F14' }}>
-              {talk.day}
-            </p>
-            <p style={{ margin: '2px 0 0', fontSize: '12.5px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#8C7A6B' }}>
-              {talk.month} · {talk.time}
-            </p>
-          </div>
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, marginBottom: 6 }}>
-              <p
-                style={{
-                  margin: 0,
-                  fontSize: '11px',
-                  letterSpacing: '0.14em',
-                  textTransform: 'uppercase',
-                  color: '#A8262B',
-                }}
-              >
-                {talk.eyebrow}
-              </p>
-              <span
-                style={{
-                  padding: '7px 14px',
-                  border: '1px solid #DFCFB4',
-                  borderRadius: '999px',
-                  fontSize: '12.5px',
-                  color: '#6B584E',
-                  whiteSpace: 'nowrap',
-                  flex: '0 0 auto',
-                }}
-              >
-                {talk.mode}
-              </span>
-            </div>
-            <h3 style={{ margin: '0 0 10px', fontSize: 19, fontWeight: 600, lineHeight: 1.35 }}>{talk.title}</h3>
-            <ul style={{ margin: '0 0 8px', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 3 }}>
-              {talk.speakers.map((speaker) => (
-                <li key={speaker.name} style={{ fontSize: 15, lineHeight: 1.5, color: '#4A3A33' }}>
-                  <span style={{ fontWeight: 600 }}>{speaker.name}</span> — {speaker.role}
-                </li>
-              ))}
-            </ul>
-            <p style={{ margin: talk.registerUrl ? '0 0 10px' : 0, fontSize: '13.5px', color: '#8C7A6B' }}>
-              {talk.venue}
-            </p>
-            {talk.registerUrl && (
-              <a
-                href={talk.registerUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ fontSize: 14, letterSpacing: '0.02em', fontWeight: 600 }}
-              >
-                Register for the talk
-              </a>
-            )}
-          </div>
+          <p style={{ margin: 0, fontSize: 15, color: '#7C6A5C' }}>
+            No talks scheduled right now — check back soon.
+          </p>
         </Reveal>
-      ))}
+      ) : (
+        upcomingTalks.map((talk, i) => (
+          <Reveal
+            key={talk.id}
+            as="article"
+            delay={0.12 + i * 0.08}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '140px 90px minmax(0, 1fr)',
+              gap: 24,
+              alignItems: 'start',
+              padding: '24px 26px',
+              marginBottom: i === upcomingTalks.length - 1 ? 64 : 16,
+              background: '#F5EBD9',
+              border: '1px solid #E4D8C2',
+            }}
+          >
+            <div style={{ position: 'relative', width: 140, height: 140, background: '#FAF5EA' }}>
+              <PosterImage image={talk.image} caption="Drop the talk poster" alt={talk.title} />
+            </div>
+            <div>
+              <p style={{ margin: 0, fontFamily: 'Spectral, Georgia, serif', fontSize: 30, fontWeight: 600, color: '#7A0F14' }}>
+                {talk.day}
+              </p>
+              <p style={{ margin: '2px 0 0', fontSize: '12.5px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#8C7A6B' }}>
+                {talk.month} · {talk.time}
+              </p>
+            </div>
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, marginBottom: 6 }}>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: '11px',
+                    letterSpacing: '0.14em',
+                    textTransform: 'uppercase',
+                    color: '#A8262B',
+                  }}
+                >
+                  {talk.eyebrow}
+                </p>
+                <span
+                  style={{
+                    padding: '7px 14px',
+                    border: '1px solid #DFCFB4',
+                    borderRadius: '999px',
+                    fontSize: '12.5px',
+                    color: '#6B584E',
+                    whiteSpace: 'nowrap',
+                    flex: '0 0 auto',
+                  }}
+                >
+                  {talk.mode}
+                </span>
+              </div>
+              <h3 style={{ margin: '0 0 10px', fontSize: 19, fontWeight: 600, lineHeight: 1.35 }}>{talk.title}</h3>
+              <ul style={{ margin: '0 0 8px', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 3 }}>
+                {talk.speakers.map((speaker) => (
+                  <li key={speaker.name} style={{ fontSize: 15, lineHeight: 1.5, color: '#4A3A33' }}>
+                    <span style={{ fontWeight: 600 }}>{speaker.name}</span> — {speaker.role}
+                  </li>
+                ))}
+              </ul>
+              <p style={{ margin: talk.registerUrl ? '0 0 10px' : 0, fontSize: '13.5px', color: '#8C7A6B' }}>
+                {talk.venue}
+              </p>
+              {talk.registerUrl && (
+                <a
+                  href={talk.registerUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ fontSize: 14, letterSpacing: '0.02em', fontWeight: 600 }}
+                >
+                  Register for the talk
+                </a>
+              )}
+            </div>
+          </Reveal>
+        ))
+      )}
 
       <Reveal>
         <h2 style={{ margin: '0 0 8px', fontFamily: 'Spectral, Georgia, serif', fontSize: 26, fontWeight: 600 }}>
@@ -261,14 +315,60 @@ export default function Talks() {
           Every completed talk is archived here with its speaker and recording.
         </p>
       </Reveal>
-      <Reveal
-        delay={0.12}
-        style={{ padding: '40px 26px', border: '1px dashed #D3C1A4', borderRadius: 4, textAlign: 'center' }}
-      >
-        <p style={{ margin: 0, fontSize: 15, color: '#7C6A5C' }}>
-          No talks held yet — the first entries appear once the series begins.
-        </p>
-      </Reveal>
+      {pastTalks.length === 0 ? (
+        <Reveal
+          delay={0.12}
+          style={{ padding: '40px 26px', border: '1px dashed #D3C1A4', borderRadius: 4, textAlign: 'center' }}
+        >
+          <p style={{ margin: 0, fontSize: 15, color: '#7C6A5C' }}>
+            No talks held yet — the first entries appear once the series begins.
+          </p>
+        </Reveal>
+      ) : (
+        pastTalks.map((talk, i) => (
+          <Reveal
+            key={talk.id}
+            as="article"
+            delay={0.12 + i * 0.08}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'minmax(0, 280px) minmax(0, 1fr)',
+              gap: 32,
+              alignItems: 'start',
+              padding: 24,
+              marginBottom: i === pastTalks.length - 1 ? 0 : 20,
+              background: '#F5EBD9',
+              border: '1px solid #E4D8C2',
+            }}
+          >
+            <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', background: '#FAF5EA' }}>
+              <VideoEmbed videoUrl={talk.videoUrl} title={talk.title} />
+            </div>
+            <div>
+              <p
+                style={{
+                  margin: '0 0 8px',
+                  fontSize: '11px',
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                  color: '#A8262B',
+                }}
+              >
+                {talk.eyebrow}
+              </p>
+              <h3 style={{ margin: '0 0 10px', fontSize: 19, fontWeight: 600, lineHeight: 1.35 }}>{talk.title}</h3>
+              <ul style={{ margin: '0 0 8px', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 3 }}>
+                {talk.speakers.map((speaker) => (
+                  <li key={speaker.name} style={{ fontSize: 15, lineHeight: 1.5, color: '#4A3A33' }}>
+                    <span style={{ fontWeight: 600 }}>{speaker.name}</span> — {speaker.role}
+                  </li>
+                ))}
+              </ul>
+              <p style={{ margin: 0, fontSize: '13.5px', color: '#8C7A6B' }}>{talk.note}</p>
+            </div>
+          </Reveal>
+        ))
+      )}
     </main>
   )
 }
