@@ -117,6 +117,7 @@ export default function Talks() {
 
       <Reveal
         as="section"
+        className="stack-mobile"
         style={{
           display: 'grid',
           gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.05fr)',
@@ -230,6 +231,7 @@ export default function Talks() {
             key={talk.id}
             as="article"
             delay={0.12 + i * 0.08}
+            className="stack-mobile"
             style={{
               display: 'grid',
               gridTemplateColumns: '140px 90px minmax(0, 1fr)',
@@ -330,6 +332,7 @@ export default function Talks() {
             key={talk.id}
             as="article"
             delay={0.12 + i * 0.08}
+            className="stack-mobile"
             style={{
               display: 'grid',
               gridTemplateColumns: 'minmax(0, 280px) minmax(0, 1fr)',

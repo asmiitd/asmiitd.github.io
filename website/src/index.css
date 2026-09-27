@@ -68,3 +68,13 @@ a:hover {
   background: #f7efe0;
   color: #7a0f14;
 }
+
+/* Collapses fixed multi-column grid layouts (hero, cards) to a single
+   column on narrow viewports. Inline grid-template-columns otherwise
+   wins over plain CSS, so this needs !important to override it. */
+@media (max-width: 760px) {
+  .stack-mobile {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+}

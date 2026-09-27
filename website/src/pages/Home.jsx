@@ -37,6 +37,7 @@ export default function Home() {
   return (
     <main>
       <section
+        className="stack-mobile"
         style={{
           display: 'grid',
           gridTemplateColumns: 'minmax(0, 1.35fr) minmax(0, 1fr)',
@@ -255,7 +256,7 @@ export default function Home() {
       </section>
 
       <section style={{ maxWidth: 1180, margin: '0 auto', padding: '76px 32px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 0.8fr) minmax(0, 1.2fr)', gap: 56 }}>
+        <div className="stack-mobile" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 0.8fr) minmax(0, 1.2fr)', gap: 56 }}>
           <Reveal>
             <div>
               <p

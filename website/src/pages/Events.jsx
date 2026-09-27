@@ -68,6 +68,7 @@ function EventCard({ event, isLast, delay }) {
     <Reveal
       as="article"
       delay={delay}
+      className="stack-mobile"
       style={{
         display: 'grid',
         gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.05fr)',
