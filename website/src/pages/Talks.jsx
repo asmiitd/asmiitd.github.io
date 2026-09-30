@@ -15,11 +15,30 @@ function PosterImage({ image, caption, alt }) {
   )
 }
 
+function toYouTubeEmbedUrl(url) {
+  try {
+    const parsed = new URL(url)
+    if (parsed.hostname === 'youtu.be') {
+      return `https://www.youtube.com/embed${parsed.pathname}`
+    }
+    if (parsed.pathname.startsWith('/embed/')) {
+      return url
+    }
+    const videoId = parsed.searchParams.get('v')
+    if (videoId) {
+      return `https://www.youtube.com/embed/${videoId}`
+    }
+  } catch {
+    // Not a valid URL — fall through and let the browser try it as-is.
+  }
+  return url
+}
+
 function VideoEmbed({ videoUrl, title }) {
   if (videoUrl) {
     return (
       <iframe
-        src={videoUrl}
+        src={toYouTubeEmbedUrl(videoUrl)}
         title={title}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
