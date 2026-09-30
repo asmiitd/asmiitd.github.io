@@ -37,7 +37,7 @@ const verticals = [
   {
     name: 'Design',
     description: 'Posters, pamphlets, invitations and correct logo usage.',
-    coordinators: ['Yashsvi Bhadoriya', ''],
+    coordinators: ['Yashsvi Bhadoriya', 'Shabnoor Chaudhary'],
     executives: ['', '','',''],
   },
   {
