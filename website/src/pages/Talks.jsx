@@ -66,7 +66,7 @@ const pastTalks = [
       { name: 'Aditi Jain', role: 'Scientific Partnerships Manager, India, ASM' },
     ],
     note: 'Seminar Hall, IIT Delhi',
-    videoUrl: null,
+    videoUrl: 'https://www.youtube.com/watch?v=3WiseV4F4n8',
   },
   {
     id: 'microbytes-inaugural-kartik-aiyer',
